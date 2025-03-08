@@ -1,6 +1,8 @@
 :root {
   background-color: #000;
   --color-text: #fff;
+  --card-bg: rgba(255, 255, 255, 0.1);
+  --card-hover-bg: rgba(255, 255, 255, 0.15);
 }
 
 .Background {
@@ -20,78 +22,21 @@
   transform: rotate(15.25deg);
 }
 
-.App {
+.container {
   position: relative;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
 }
 
 text {
   color: var(--color-text);
 }
 
-.Banner {
-  flex: 5;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 100;
-}
-
-.Logo {
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 8px;
-}
-
-.Logo--react {
-  width: 100px;
-  height: 100px;
-  animation: Logo--spin infinite 20s linear;
-}
-
-.Logo--lynx {
-  width: 100px;
-  height: 100px;
-  animation: Logo--shake infinite 0.5s ease;
-}
-
-@keyframes Logo--spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-@keyframes Logo--shake {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(0.9);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
-.Content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.Arrow {
-  width: 24px;
-  height: 24px;
+.header {
+  padding: 40px 20px;
+  text-align: center;
+  z-index: 1;
 }
 
 .Title {
@@ -100,20 +45,89 @@ text {
 }
 
 .Subtitle {
-  font-style: italic;
   font-size: 22px;
+  font-weight: 600;
+  opacity: 0.8;
+  margin-top: 8px;
+}
+
+.gallery {
+  flex: 1;
+  padding: 20px;
+  height: 100%;
+}
+
+.cards-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding-bottom: 40px;
+}
+
+.card {
+  width: 280px;
+  background: var(--card-bg);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.card:active {
+  transform: scale(0.98);
+  background: var(--card-hover-bg);
+}
+
+.card-content {
+  padding: 16px;
+}
+
+.card-image {
+  width: 100px;
+  height: 100px;
+  margin: 30px auto;
+  display: block;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+}
+
+.card-text {
+  padding: 16px 0 0;
+}
+
+.card-title {
+  font-size: 20px;
   font-weight: 600;
   margin-bottom: 8px;
 }
 
-.Description {
-  font-size: 20px;
-  color: rgba(255, 255, 255, 0.85);
-  margin: 15rpx;
+.card-description {
+  font-size: 16px;
+  opacity: 0.8;
+  line-height: 1.4;
 }
 
-.Hint {
-  font-size: 12px;
-  margin: 5px;
-  color: rgba(255, 255, 255, 0.65);
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card {
+  animation: fadeIn 0.5s ease forwards;
+}
+
+@media (max-width: 640px) {
+  .cards-grid {
+    gap: 16px;
+  }
+  
+  .card {
+    width: 100%;
+  }
 }

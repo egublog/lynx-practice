@@ -1,44 +1,69 @@
-import { useCallback, useEffect, useState } from '@lynx-js/react'
-
+import { useEffect, useState } from '@lynx-js/react'
 import './App.css'
-import arrow from './assets/arrow.png'
 import lynxLogo from './assets/lynx-logo.png'
-import reactLynxLogo from './assets/react-logo.png'
+import reactLogo from './assets/react-logo.png'
+
+interface Card {
+  id: number
+  title: string
+  description: string
+  image: string
+}
 
 export function App() {
-  const [alterLogo, setAlterLogo] = useState(false)
+  const [cards] = useState<Card[]>([
+    {
+      id: 1,
+      title: "Lynx.js の基本",
+      description: "モダンなUIフレームワーク",
+      image: lynxLogo
+    },
+    {
+      id: 2,
+      title: "レイアウトの魅力",
+      description: "柔軟なグリッドシステム",
+      image: reactLogo
+    },
+    {
+      id: 3,
+      title: "スタイリング",
+      description: "直感的なデザイン構築",
+      image: lynxLogo
+    },
+    {
+      id: 4,
+      title: "スクロール体験",
+      description: "スムーズなインタラクション",
+      image: reactLogo
+    }
+  ])
 
   useEffect(() => {
-    console.info('Hello, ReactLynx')
+    console.info('ギャラリーを初期化しました')
   }, [])
 
-  const onTap = useCallback(() => {
-    'background only'
-    setAlterLogo(!alterLogo)
-  }, [alterLogo])
-
   return (
-    <view>
-      <view className='Background' />
-      <view className='App'>
-        <view className='Banner'>
-          <view className='Logo' bindtap={onTap}>
-            {alterLogo
-              ? <image src={reactLynxLogo} className='Logo--react' />
-              : <image src={lynxLogo} className='Logo--lynx' />}
-          </view>
-          <text className='Title'>React</text>
-          <text className='Subtitle'>on Lynx</text>
+    <view className="container">
+      <view className="Background" />
+      <view className="header">
+        <text className="Title">Lynx.js ギャラリー</text>
+        <text className="Subtitle">インタラクティブなカード表示</text>
+      </view>
+      
+      <view className="gallery">
+        <view className="cards-grid">
+          {cards.map(card => (
+            <view key={card.id} className="card">
+              <view className="card-content">
+                <image src={card.image} className="card-image" />
+                <view className="card-text">
+                  <text className="card-title">{card.title}</text>
+                  <text className="card-description">{card.description}</text>
+                </view>
+              </view>
+            </view>
+          ))}
         </view>
-        <view className='Content'>
-          <image src={arrow} className='Arrow' />
-          <text className='Description'>Tap the logo and have fun!</text>
-          <text className='Hint'>
-            Edit<text style={{ fontStyle: 'italic' }}>{' src/App.tsx '}</text>
-            to see updates!
-          </text>
-        </view>
-        <view style={{ flex: 1 }}></view>
       </view>
     </view>
   )
